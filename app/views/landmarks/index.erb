@@ -1,0 +1,7 @@
+<h1> Landmarks </h1>
+
+<% @landmarks.all.each do |landmark| %>
+<ul>
+  <li><a href="/landmarks/<%=landmark.id%>"> <%= [landmark.name, landmark.year_completed].join(" - ") %> </a> </li>
+</ul>
+<% end %>

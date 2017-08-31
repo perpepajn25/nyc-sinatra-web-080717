@@ -1,27 +1,40 @@
 class LandmarksController < ApplicationController
 
-  get '/figures' do
-    #display all the figures
+  get '/landmarks' do
+    @landmarks = Landmark.all
+    erb :"landmarks/index"
   end
 
-  get 'figures/:id' do
-    # render a page with given figure info
+  get '/landmarks/new' do
+    erb :"landmarks/new"
   end
 
-  get '/figures/new' do
-    #bring to page for new figure
+  get '/landmarks/:id' do
+    @landmark = Landmark.find_by(id: params[:id])
+    erb :"landmarks/show"
   end
 
-  post '/figures' do
-    #creating new figure
+  post '/landmarks' do
+    landmark = Landmark.create(params[:landmark])
+    redirect to "landmarks/#{landmark.id}"
   end
 
-  get '/figures/:id/edit' do
-    #bring to page to edit a given figure
+  get '/landmarks/:id/edit' do
+    @landmark = Landmark.find_by(id: params[:id])
+    erb :"landmarks/edit"
   end
 
-  post '/figures/:id' do
-    #PATCH? updates given figure with new info
+  patch '/landmarks/:id' do
+    landmark = Landmark.find_by(id: params[:id])
+    landmark.name= params[:landmark][:name]
+    landmark.year_completed= params[:landmark][:year_completed]
+    landmark.save
+    redirect to "landmarks/#{landmark.id}"
   end
-  
+
+  get '/landmarks/:id/delete' do
+    Landmark.find_by(id: params[:id]).delete
+    redirect to "landmarks"
+  end
+
 end
