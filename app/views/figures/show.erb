@@ -1,0 +1,15 @@
+<h1><%= @figure.name %></h1>
+<% if @figure.titles.size != 0 %>
+  <p>Titles:
+  <%@figure.titles.each do |title| %>
+    <%=title.name%>
+  <% end %>
+<% end %>
+  <ol>
+    <% @figure.landmarks.each do |landmark| %>
+        <li><%= landmark.name %></li>
+    <% end %>
+  </ol>
+  <a href="/figures/<%=@figure.id%>/edit" >Edit</a>
+  <form>
+  </form>

@@ -1,27 +1,45 @@
 class FiguresController < ApplicationController
 
-  get '/landmarks' do
-    #display all the landmarks
+  get '/figures' do
+    @figures = Figure.all
+    erb :'/figures/index'
   end
 
-  get 'landmarks/:id' do
-    # render a page with given landmark info
+  get '/figures/new' do
+    #bring to page for new figure
+    erb :"figures/new"
   end
 
-  get '/landmarks/new' do
-    #bring to page for new landmark
+  post '/figures' do
+    figure = Figure.create(params[:figure])
+    # if params[:other1] == "1"
+    title = Title.create(name: params[:title][:name])
+    figure.titles << title
+    # if params[:other2] == "1"
+    landmark = Landmark.create(name: params[:landmark][:name])
+    figure.landmarks << landmark
+    redirect to "figures/#{figure.id}"
   end
 
-  post '/landmarks' do
-    #creating new landmark
+  get '/figures/:id' do
+    @figure = Figure.find_by(id: params[:id])
+    erb :'/figures/show'
   end
 
-  get '/landmarks/:id/edit' do
-    #bring to page to edit a given landmark
+  get '/figures/:id/edit' do
+    #bring to page to edit a given figure
+    @figure = Figure.find_by(id: params[:id])
+    erb :'/figures/edit'
   end
 
-  post '/landmarks/:id' do
-    #PATCH? updates given landmark with new info
+  patch '/figures/:id' do
+    #PATCH? updates given figure with new info
+    # binding.pry
+    figure = Figure.find_by(id: params[:id])
+    figure.landmark << Landmark.create(params[:landmark][:name])
+    figure.title << Title.create(params[:title][:name])
+    figure.update(params[:figure])
+    redirect to "/figures/#{figure.id}"
   end
 
 end

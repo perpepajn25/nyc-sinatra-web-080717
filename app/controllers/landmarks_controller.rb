@@ -1,27 +1,27 @@
 class LandmarksController < ApplicationController
 
-  get '/figures' do
-    #display all the figures
+  get '/landmarks' do
+    #display all the landmarks
   end
 
-  get 'figures/:id' do
-    # render a page with given figure info
+  get '/landmarks/:id' do
+    # render a page with given landmark info
   end
 
-  get '/figures/new' do
-    #bring to page for new figure
+  get '/landmarks/new' do
+    #bring to page for new landmark
   end
 
-  post '/figures' do
-    #creating new figure
+  post '/landmarks' do
+    #creating new landmark
   end
 
-  get '/figures/:id/edit' do
-    #bring to page to edit a given figure
+  get '/landmarks/:id/edit' do
+    #bring to page to edit a given landmark
   end
 
-  post '/figures/:id' do
-    #PATCH? updates given figure with new info
+  post '/landmarks/:id' do
+    #PATCH? updates given landmark with new info
   end
-  
+
 end
