@@ -36,9 +36,13 @@ class FiguresController < ApplicationController
     #PATCH? updates given figure with new info
     # binding.pry
     figure = Figure.find_by(id: params[:id])
-    figure.landmark << Landmark.create(params[:landmark][:name])
-    figure.title << Title.create(params[:title][:name])
     figure.update(params[:figure])
+    if params[:landmark][:name] !=""
+      figure.landmarks << Landmark.create(name: params[:landmark][:name])
+    end
+    if params[:title][:name] != ""
+      figure.titles << Title.create(name: params[:title][:name])
+    end
     redirect to "/figures/#{figure.id}"
   end
 
